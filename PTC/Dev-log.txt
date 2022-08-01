@@ -1,0 +1,171 @@
+Simulation: Nz 1 suc 1 Seg
+{'I': -1}
+[{'var': 'I', 'choices': [16]}]
+save file C:\Users\user\Documents\bjonesmile_project\FId-pde-project\PTC\MCTS-Nz1-1seg-result2022-05-14.pkl finished.
+MCTS : 0.191226517684505, {'I': [110]} process time(real):  17945.878135681152
+VNS  : 0.18934280588328076, {'I': [117]}
+
+Simulation: Nz 1 suc 3 Seg
+{'I_x12': -1, 'I_x3': -1, 'I_x45': -1}
+[{'var': 'I_x12', 'choices': [10, 160]}, {'var': 'I_x3', 'choices': [15, 170]}, {'var': 'I_x45', 'choices': [20, 235]}]
+save file C:\Users\user\Documents\bjonesmile_project\FId-pde-project\PTC\MCTS-Nz1-3seg-result2022-05-17.pkl finished.
+MCTS: 0.1903240552279058 {'I_x12': [109], 'I_x3': [122], 'I_x45': [126]} process time(real):  103344.8448882103
+VNS : 0.1881962608042383 {'I_x12': [112], 'I_x3': [115], 'I_x45': [118]}
+
+Simulation: Nz 1 Seg 5 suc
+{'I_x1': 1, 'I_x2': 1, 'I_x3': 1, 'I_x4': 1, 'I_x5': 1}
+[{'var': 'I_x1', 'choices': [20, 't']}, {'var': 'I_x2', 'choices': [20, 200]}, {'var': 'I_x3', 'choices': [20, 155]}, {'var': 'I_x4', 'choices': [20, 235]}, {'var': 'I_x5', 'choices': 
+[120, 235]}]
+MCTS: 0.19103630596573676 {'I_x1': [104], 'I_x2': [109], 'I_x3': [113], 'I_x4': [124], 'I_x5': [136]} process time(real):  118997.33847928047
+VNS : 0.18804326797164594 {'I_x1': [110, 't'], 'I_x2': [112], 'I_x3': [115], 'I_x4': [118], 'I_x5': [118]} process time(real):  16876.429927825928
+save file C:\Users\user\Documents\bjonesmile_project\FId-pde-project\PTC\MCTS-Nz1-5seg-result2022-05-20.pkl finished.
+
+Simulation: Nz 2 Seg 1 suc
+{'I': 1}
+0.21336042133290062   {'I': [21, 137]}
+0.20508366134545167  {'I': [17, 126]}
+process time(real):  15186.781867980957
+save file C:\Users\user\Documents\bjonesmile_project\FId-pde-project\PTC\MCTS-Nz2-1seg-result2022-06-03.pkl finished.
+
+
+Simulation: Nz 2 Seg 3 suc
+{'I_x12': 1, 'I_x3': 1, 'I_x45': 1}
+[{'var': 'I_x12', 'choices': [20, 140, 't']}, {'var': 'I_x3', 'choices': [35, 160]}, {'var': 'I_x45', 'choices': [35, 160]}]
+process time(real):  56294.078790187836
+0.2285103985889562 {'I_x12': [20, 140, 't'], 'I_x3': [35, 160], 'I_x45': [35, 160]}
+save file C:\Users\user\Documents\bjonesmile_project\FId-pde-project\PTC\MCTS-Nz2-3seg-result2022-05-20.pkl finished.
+0.22808914251660345 {'I_x12': [20, 144, 't'], 'I_x3': [26, 160], 'I_x45': [35, 168]}
+0.2021813753884245 {'I_x12': [13, 116, 't'], 'I_x3': [15, 120], 'I_x45': [18, 126]}
+
+Simulation: Nz 2 Seg 5 suc
+{'I_x1': 1, 'I_x2': 1, 'I_x3': 1, 'I_x4': 1, 'I_x5': 1}
+[{'var': 'I_x1', 'choices': [30, 150, 't']}, {'var': 'I_x2', 'choices': [15, 140]}, {'var': 'I_x3', 'choices': [15, 140]}, {'var': 'I_x4', 'choices': [30, 150]}, {'var': 'I_x5', 'choices': [170, 205, 230]}]
+process time(real):  145201.89829683304
+0.20519870611652144 {'I_x1': [9, 108, 't'], 'I_x2': [12, 116], 'I_x3': [14, 123], 'I_x4': [20, 129], 'I_x5': [23, 131]}
+0.20145889087221194 {'I_x1': [12, 114, 't'], 'I_x2': [13, 116], 'I_x3': [15, 121], 'I_x4': [17, 126], 'I_x5': [18, 128]}
+
+save file C:\Users\user\Documents\bjonesmile_project\FId-pde-project\PTC\MCTS-Nz2-5seg-result2022-05-22.pkl finished.
+
+Simulation: Nz 4 Seg 1 suc
+{'I': +1}
+MCTS: 0.31841622211860027 {'I': [13, 108, 't']} process time(real):  19506.83715224266 
+VNS : 0.28241898976649193 {'I': [16, 104, 't']} process time(real):  2485.529243707657
+save file C:\Users\user\Documents\bjonesmile_project\FId-pde-project\PTC\MCTS-Nz4-1seg-result2022-06-03.pkl finished.
+
+Simulation: Nz 4 Seg 3 suc
+{'I_x12': 1, 'I_x3': 1, 'I_x45': 1}
+[{'var': 'I_x12', 'choices': [10, 100, 125, 185, 240]}, {'var': 'I_x3', 'choices': [15, 110, 240, 't']}, {'var': 'I_x45', 'choices': [15, 115, 125, 200]}]
+process time(real):  92530.32302260399
+0.2729938653921934 {'I_x12': [10, 100, 125], 'I_x3': [15, 110, 130], 'I_x45': [15, 115, 125]}
+MCTS: 0.2899723092445522 {'I_x12': [13, 96, 120], 'I_x3': [16, 109, 136], 'I_x45': [22, 115, 127]}
+VNS : 0.27466039209448784 {'I_x12': [9, 101, 125], 'I_x3': [13, 109, 131], 'I_x45': [15, 115, 126]}
+save file C:\Users\user\Documents\bjonesmile_project\FId-pde-project\PTC\MCTS-Nz4-3seg-result2022-05-23.pkl finished.
+
+Simulation: Nz 4 Seg 5 suc
+{'I_x1': 1, 'I_x2': 1, 'I_x3': 1, 'I_x4': 1, 'I_x5': 1}
+[{'var': 'I_x1', 'choices': [10, 130, 230, 240, 't']}, {'var': 'I_x2', 'choices': [240]}, {'var': 'I_x3', 'choices': [55, 135, 235, 240]}, {'var': 'I_x4', 'choices': [55, 115, 215, 240]}, {'var': 'I_x5', 'choices': [50, 240]}]
+process time(real):  139621.65938282013
+MCTS: 0.33300164848575464 {'I_x1': [10, 105, 120,], 'I_x2': [13, 110, 123,], 'I_x3': [14, 116, 125,], 'I_x4': [18, 107, 138,], 'I_x5': [25, 122, 144,]}
+VNS : 0.2687380553562772 {'I_x1': [9, 102, 121,], 'I_x2': [12, 106, 124,], 'I_x3': [14, 110, 128,], 'I_x4': [16, 114, 131,], 'I_x5': [19, 117, 134,]}
+save file C:\Users\user\Documents\bjonesmile_project\FId-pde-project\PTC\MCTS-Nz4-5seg-result2022-05-26.pkl finished.
+
+Simulation: Nz 6 Seg 1 suc
+{'I': 1}
+[{'var': 'I', 'choices': ['t']}]
+MVTS: 0.48389842403617755 {'I': ['t']} process time(real): 5625.720173120499
+save file C:\Users\user\Documents\bjonesmile_project\FId-pde-project\PTC\MCTS-Nz6-1seg-result2022-06-16.pkl finished.
+
+Simulation: Nz 6 Seg 3 suc
+{'I_x12': 1, 'I_x3': 1, 'I_x45': 1}
+[{'var': 'I_x12', 'choices': [10, 100, 't']}, {'var': 'I_x3', 'choices': [25, 100, 175]}, {'var': 'I_x45', 'choices': [30, 110, 230]}]
+process time(real):  66306.14981603622
+0.5112612559178046 {'I_x12': [10, 100, 't'], 'I_x3': [25, 100, 175], 'I_x45': [30, 110, 230]}
+MCTS: 0.47686326731219390 {'I_x12': [16, 103, 't'], 'I_x3': [13, 105], 'I_x45': [20, 111]}
+VNS : 0.4889051477850798 {'I_x12': [11, 105, 't'], 'I_x3': [12, 106], 'I_x45': [15, 108]}
+save file C:\Users\user\Documents\bjonesmile_project\FId-pde-project\PTC\MCTS-Nz6-3seg-result2022-06-09.pkl finished.
+Simulation: Nz 6 Seg 3 suc
+{'I_x12': 1, 'I_x3': 1, 'I_x45': 1}
+[{'var': 'I_x12', 'choices': [235, 't']}, {'var': 'I_x3', 'choices': []}, {'var': 'I_x45', 'choices': []}]
+process time(real):  16532.037270069122
+Scenario vertex={'I_x12': [235, 't'], 'I_x3': [], 'I_x45': []}:
+  Modelstatus: 0.0
+  Solvestatus: 0.0
+  Obj: 0.48762384315029617
+0.48762384315029617 {'I_x12': [235, 't'], 'I_x3': [], 'I_x45': []}
+save file C:\Users\user\Documents\bjonesmile_project\FId-pde-project\PTC\MCTS-Nz6-3seg-result2022-06-16.pkl finished.
+
+Simulation: Nz 6 Seg 5 suc
+{'I_x1': 1, 'I_x2': 1, 'I_x3': 1, 'I_x4': 1, 'I_x5': 1}
+[{'var': 'I_x1', 'choices': [10, 130, 't']}, {'var': 'I_x2', 'choices': [15, 105]}, {'var': 'I_x3', 'choices': [15, 110, 115, 135]}, {'var': 'I_x4', 'choices': [20, 115, 135, 140]}, {'var': 'I_x5', 'choices': [20, 195]}]
+process time(real):  113873.99722409248
+0.4698893206699552 {'I_x1': [10, 130, 't'], 'I_x2': [15, 105], 'I_x3': [15, 110, 115, 135], 'I_x4': [20, 115, 135, 140], 'I_x5': [20, 195]}
+VNS : 0.4878273386982491 {'I_x1': [12, 105, 't'], 'I_x2': [13, 106], 'I_x3': [14, 107], 'I_x4': [14, 108], 'I_x5': [14, 109]}
+save file C:\Users\user\Documents\bjonesmile_project\FId-pde-project\PTC\MCTS-Nz6-5seg-result2022-06-13.pkl finished.
+process time(real):  30250.468353509903
+Scenario vertex={'I_x1': ['t'], 'I_x2': [], 'I_x3': [], 'I_x4': [], 'I_x5': []}:
+  Modelstatus: 2
+  Solvestatus: 1
+  Obj: 0.4838984240361889
+0.4838984240361889 {'I_x1': ['t'], 'I_x2': [], 'I_x3': [], 'I_x4': [], 'I_x5': []}
+save file C:\Users\user\Documents\bjonesmile_project\FId-pde-project\PTC\MCTS-Nz6-5seg-result2022-06-16.pkl finished.
+
+
+Simulation: Nz 8 Seg 1 suc
+{'I': 1}
+[{'var': 'I', 'choices': [20, 110, 125, 160]}]
+process time(real):  12386.859165668488
+0.48762384315029655 {'I': [20, 110,]}
+VNS : 0.48762384315027446 {'I': [17, 104]}
+save file C:\Users\user\Documents\bjonesmile_project\FId-pde-project\PTC\MCTS-Nz8-1seg-result2022-06-07.pkl finished.
+
+Simulation: Nz 8 Seg 3 suc
+{'I_x12': 1, 'I_x3': 1, 'I_x45': 1}
+[{'var': 'I_x12', 'choices': [160, 240, 't']}, {'var': 'I_x3', 'choices': [240]}, {'var': 'I_x45', 'choices': [95, 240]}]
+process time(real):  28788.201527118683
+0.8614719967831806 {'I_x12': [160, 240, 't'], 'I_x3': [240], 'I_x45': [95, 240]}
+save file C:\Users\user\Documents\bjonesmile_project\FId-pde-project\PTC\MCTS-Nz8-3seg-result2022-05-27.pkl finished.
+
+Simulation: Nz 8 Seg 3 suc
+{'I_x12': 1, 'I_x3': 1, 'I_x45': 1}
+[{'var': 'I_x12', 'choices': [10, 110]}, {'var': 'I_x3', 'choices': [10, 105]}, {'var': 'I_x45', 'choices': [15, 115]}]
+process time(real):  71587.52050042152
+0.5657321390434777 {'I_x12': [10, 110], 'I_x3': [10, 105], 'I_x45': [15, 115]}
+save file C:\Users\user\Documents\bjonesmile_project\FId-pde-project\PTC\MCTS-Nz8-3seg-result2022-05-30.pkl finished.
+
+Simulation: Nz 8 Seg 3 suc
+{'I_x12': -1, 'I_x3': -1, 'I_x45': -1}
+[{'var': 'I_x12', 'choices': [105, 240, 't']}, {'var': 'I_x3', 'choices': [115, 165, 215, 230]}, {'var': 'I_x45', 'choices': [115, 230, 240]}]
+process time(real):  43935.95089006424
+0.5952296119013198 {'I_x12': [105, 240, 't'], 'I_x3': [115, 165, 215, 230], 'I_x45': [115, 230, 240]}
+0.487623843150283  {'I_x12': [15, 103, 't'], 'I_x3': [17, 105], 'I_x45': [18, 107]}
+save file C:\Users\user\Documents\bjonesmile_project\FId-pde-project\PTC\MCTS-Nz8-3seg-result2022-05-31.pkl finished.
+
+Simulation: Nz 8 Seg 5 suc
+{'I_x1': 1, 'I_x2': 1, 'I_x3': 1, 'I_x4': 1, 'I_x5': 1}
+[{'var': 'I_x1', 'choices': [10, 125, 145, 180, 't']}, {'var': 'I_x2', 'choices': [10, 115, 235]}, {'var': 'I_x3', 'choices': [10, 125, 215, 220]}, {'var': 'I_x4', 'choices': [10, 110, 135, 140, 200, 235]}, {'var': 'I_x5', 'choices': [10, 230, 240]}]
+process time(real):  110775.94088578224
+0.5980756797264699 {'I_x1': [10, 125, 145, 180, 't'], 'I_x2': [10, 115, 235], 'I_x3': [10, 125, 215, 220], 'I_x4': [10, 110, 135, 140, 200, 235], 'I_x5': [10, 230, 240]}
+0.4876239142540214 {'I_x1': [14, 103, 't'], 'I_x2': [16, 104], 'I_x3': [17, 105], 'I_x4': [17, 106], 'I_x5': [18, 109]}
+save file C:\Users\user\Documents\bjonesmile_project\FId-pde-project\PTC\MCTS-Nz8-5seg-result2022-06-01.pkl finished.
+
+Simulation: Nz 10 Seg 1 suc
+{'I': -1}
+[{'var': 'I', 'choices': [90, 105, 130, 145]}]
+process time(real):  11675.366486549377
+0.5930822777690898 {'I': [90, 105, 130, 145]}
+save file C:\Users\user\Documents\bjonesmile_project\FId-pde-project\PTC\MCTS-Nz10-1seg-result2022-06-13.pkl finished.
+
+Simulation: Nz 10 Seg 3 suc
+{'I_x12': 1, 'I_x3': 1, 'I_x45': 1}
+[{'var': 'I_x12', 'choices': [5, 110, 120, 185, 235, 240, 't']}, {'var': 'I_x3', 'choices': [5, 115, 125, 215, 235, 240]}, {'var': 'I_x45', 'choices': [1, 115, 235, 240]}]
+process time(real):  100121.11514949799
+0.6431612909662399 {'I_x12': [5, 110, 120, 185, 235, 240, 't'], 'I_x3': [5, 115, 125, 215, 235, 240], 'I_x45': [1, 115, 235, 240]}
+save file C:\Users\user\Documents\bjonesmile_project\FId-pde-project\PTC\MCTS-Nz10-3seg-result2022-06-06.pkl finished.
+0.6141739798630361 {'I_x12': [110, 120, 't'], 'I_x3': [115, 125], 'I_x45': [115]}
+
+Simulation: Nz 10 Seg 5 suc
+{'I_x1': -1, 'I_x2': -1, 'I_x3': -1, 'I_x4': -1, 'I_x5': -1}
+[{'var': 'I_x1', 'choices': [125, 220, 't']}, {'var': 'I_x2', 'choices': [115]}, {'var': 'I_x3', 'choices': [125, 240]}, {'var': 'I_x4', 'choices': [115, 165, 240]}, {'var': 'I_x5', 'choices': []}]
+process time(real):  76812.25327372551
+0.5954634712321739 {'I_x1': [125, 220, 't'], 'I_x2': [115], 'I_x3': [125, 240], 'I_x4': [115, 165, 240], 'I_x5': []}
+save file C:\Users\user\Documents\bjonesmile_project\FId-pde-project\PTC\MCTS-Nz10-5seg-result2022-06-07.pkl finished.

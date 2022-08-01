@@ -1,0 +1,315 @@
+GAMS 32.2.0  rc62c018 Released Aug 26, 2020 WEX-WEI x86 64bit/MS Windows - 05/18/22 15:38:24 Page 1
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+C o m p i l a t i o n
+
+
+   1  Sets
+   2      t   /1*240/
+   3      x   /1*5/
+   4      j   /1*5/
+   5      ;
+   6   
+   7  Alias(j,k);
+   8   
+   9  Scalar  nfe /5/;
+  10   
+  11   
+  12  Table A(j,j)
+  13       1        2         3        4         5
+  14  1   -13.0     14.7883  -2.6667   1.8784   -1.000
+  15  2   -5.3238   3.8730    2.0656  -1.2910    0.6762
+  16  3    1.5000  -3.2275    0.0000   3.2275   -1.5000
+  17  4   -0.6762   1.2910   -2.0656  -3.8730    5.3238
+  18  5    1.0000  -1.8784    2.6667  -14.7883  13.0000;
+  19   
+  20  Table B(j,j)
+  21      1           2           3           4           5
+  22  1   84.0000     -122.0632   58.6667     -44.6035    24.0000
+  23  2   53.2379     -73.3333    26.6667     -13.3333    6.7621
+  24  3   -6.0000     16.6667    -21.3333     16.6667     -6.0000
+  25  4   6.7621      -13.3333    26.6667     -73.3333    53.2379
+  26  5   24.0000     -44.6035    58.6667     -122.0632   84.0000;
+  27   
+  28  Parameters
+  29      I_n(t)
+  30      I_x1_vertex(t)
+  31      I_x2_vertex(t)
+  32      I_x3_vertex(t)
+  33      I_x4_vertex(t)
+  34      I_x5_vertex(t)
+  35      ;
+  36   
+GDXIN   C:\Users\user\Documents\bjonesmile_project\FId-pde-project\PTC\ptc_nz1_seg5\Db_vertex.gdx
+--- LOAD  I_x1_vertex = 1:I_x1_vertex
+--- LOAD  I_x2_vertex = 2:I_x2_vertex
+--- LOAD  I_x3_vertex = 3:I_x3_vertex
+--- LOAD  I_x4_vertex = 4:I_x4_vertex
+--- LOAD  I_x5_vertex = 5:I_x5_vertex
+  40   
+  41  sets
+  42      bc_in_region(t,x,j)
+  43      bc_out_region(t,x,j)
+  44      c_region(t,x,j)
+  45      d_region(t,x,j)
+  46      i_region(t,x,j)
+  47      ;
+  48      bc_in_region(t,x,j) = no;
+  49      bc_in_region(t,x,j)$(ord(x) = 1 and ord(j) = 1) = yes;
+  50      bc_out_region(t,x,j) = no;
+  51      bc_out_region(t,x,j)$(ord(x) = card(x) and ord(x) = card(x)) = yes;
+  52   
+  53      c_region(t,x,j) = no;
+  54      c_region(t,x,j)$(ord(j) = 1 or ord(j) = card(j)) = yes;
+  55      c_region(t,x,j)$(ord(x) = 1 and ord(j) = 1) = no;
+  56      c_region(t,x,j)$(ord(x) = card(x) and ord(j) = card(j)) = no;
+  57   
+  58      d_region(t,x,j) = yes;
+  59      d_region(t,x,j)$(bc_in_region(t,x,j)) = no;
+  60      d_region(t,x,j)$(bc_out_region(t,x,j)) = no;
+  61      d_region(t,x,j)$(c_region(t,x,j)) = no;
+  62   
+  63      i_region(t,x,j) = no;
+  64      i_region(t,x,j)$(ord(t) = 1) = yes;
+  65   
+  66  parameters
+  67      dt  /60/
+  68      dx  /100/
+  69      ;
+  70   
+  71  Scalars
+  72      eta         /0.4/
+  73  *oil
+  74      rho_o       /932/
+  75      cp_o        /2090/
+  76      A_i         /1.9e-3/
+  77   
+  78      p_i         /0.157/
+  79      r_i         /0.025/
+  80  *absorber pipe
+  81      rho_A       /7850/
+  82      cp_A        /460/
+  83      A_o         /1.9e-3/
+  84      p_o         /0.188/
+  85      r_o         /0.03/
+  86  *glass envelope
+  87      rho_E       /2400/
+  88      cp_E        /840/
+  89      A_E         /2.8e-3/
+  90   
+  91      h_air       /25/
+  92      h_p         /3017/
+  93      xi_A        /0.18/
+  94      xi_E        /0.9/
+  95      SB_const    /5.67e-8/
+  96      W           /5.75/
+  97      c
+  98   
+  99      T_air       /25/
+ 100      T_sky       /40/
+ 101   
+ 102      ;
+ 103      c = 1/xi_A*(1-xi_E)/xi_E*r_i/r_o;
+ 104   
+ 105      I_n(t)$(ord(t) <= 48) = 400;
+ 106      I_n(t)$(ord(t) > 48 and ord(t) <= 96) = 500;
+ 107      I_n(t)$(ord(t) > 96 and ord(t) <= 144) = 600;
+ 108      I_n(t)$(ord(t) > 144 and ord(t) <= 192) = 500;
+ 109      I_n(t)$(ord(t) > 192 and ord(t) <= 240) = 400;
+ 110   
+ 111  Variables
+ 112      obj
+ 113      FId
+ 114   
+ 115      m(t)
+ 116   
+ 117      I(t,x,j)
+ 118      T_o(t,x,j)
+ 119      T_a(t,x,j)
+ 120      T_e(t,x,j)
+ 121   
+ 122      T_o_in(t)
+ 123      T_o_out(t)
+ 124      ;
+ 125      FId.l = 1.0;
+ 126      FId.lo = 0.0;
+ 127      FId.up = 1.25;
+ 128   
+ 129      m.lo(t) = 1.5;
+ 130      m.up(t) = 4;
+ 131   
+ 132      T_a.lo(t,x,j) = 100;
+ 133      T_a.up(t,x,j) = 400;
+ 134      T_a.l(t,x,j) = 220;
+ 135      T_a.fx('1',x,j) = 220;
+ 136   
+ 137   
+ 138      T_o.lo(t,x,j) = 200;
+ 139      T_o.up(t,x,j) = 280;
+ 140      T_o.l(t,x,j) = 220;
+ 141      T_o.fx('1',x,j) = 220;
+ 142   
+ 143      T_e.lo(t,x,j) = 25;
+ 144      T_e.l(t,x,j) = 35;
+ 145      T_e.fx('1',x,j) = 35;
+ 146   
+ 147      T_o_in.l(t) = 220;
+ 148      T_o_in.fx('1') = 220;
+ 149   
+ 150  Parameters
+ 151      T_o_lb(t,x,j)
+ 152      T_o_ub(t,x,j)
+ 153      ;
+GDXIN   C:\Users\user\Documents\bjonesmile_project\FId-pde-project\PTC\ptc_nz1_seg5\T_o_lb.gdx
+--- LOAD  T_o_lb = 1:T_o_lb
+GDXIN   C:\Users\user\Documents\bjonesmile_project\FId-pde-project\PTC\ptc_nz1_seg5\T_o_ub.gdx
+--- LOAD  T_o_ub = 1:T_o_ub
+ 162      T_o.lo(t,x,j) = T_o_lb(t,x,j);
+ 163      T_o.up(t,x,j) = T_o_ub(t,x,j);
+ 164   
+ 165  Equations
+ 166      fobj
+ 167      I_uncertain_x1_1(t)
+ 168      I_uncertain_x1_2(t)
+ 169      I_uncertain_x1_3(t)
+ 170      I_uncertain_x1_4(t)
+ 171      I_uncertain_x1_5(t)
+ 172      I_uncertain_x2_1(t)
+ 173      I_uncertain_x2_2(t)
+ 174      I_uncertain_x2_3(t)
+ 175      I_uncertain_x2_4(t)
+ 176      I_uncertain_x2_5(t)
+ 177      I_uncertain_x3_1(t)
+ 178      I_uncertain_x3_2(t)
+ 179      I_uncertain_x3_3(t)
+ 180      I_uncertain_x3_4(t)
+ 181      I_uncertain_x3_5(t)
+ 182      I_uncertain_x4_1(t)
+ 183      I_uncertain_x4_2(t)
+ 184      I_uncertain_x4_3(t)
+ 185      I_uncertain_x4_4(t)
+ 186      I_uncertain_x4_5(t)
+ 187      I_uncertain_x5_1(t)
+ 188      I_uncertain_x5_2(t)
+ 189      I_uncertain_x5_3(t)
+ 190      I_uncertain_x5_4(t)
+ 191      I_uncertain_x5_5(t)
+ 192  *init
+ 193      eq_init_T_o(t,x,j)
+ 194      eq_init_T_a(t,x,j)
+ 195      eq_init_T_e(t,x,j)
+ 196  *C.V
+ 197      m_1(t)
+ 198  *S,V
+ 199      eq_PDE_To(t,x,j)
+ 200      eq_cont_To_x(t,x,j)
+ 201      eq_cont_To_dx(t,x,j)
+ 202      eq_BC_To_IN(t,x,j)
+ 203      eq_BC_To_OUT(t,x,j)
+ 204   
+ 205      eq_PDE_Ta(t,x,j)
+ 206   
+ 207      eq_PDE_Te(t,x,j)
+ 208   
+ 209      eq_T_o_in(t)
+ 210      eq_T_o_out(t)
+ 211      ;
+ 212   
+ 213      eq_init_T_o(t,x,j)$(i_region(t,x,j)).. T_o(t,x,j) =e= 220;
+ 214      eq_init_T_a(t,x,j)$(i_region(t,x,j)).. T_a(t,x,j) =e= 220;
+ 215      eq_init_T_e(t,x,j)$(i_region(t,x,j)).. T_e(t,x,j) =e= 35;
+ 216   
+ 217      eq_PDE_To(t,x,j)$(d_region(t,x,j) and ord(t) < card(t))..
+ 218      T_o(t+1,x,j) =e= T_o(t,x,j)+dt/2/(rho_o*cp_o*A_i)*(-m(t)*cp_o*sum(k,A(j,k)*T_o(t  ,x,k))/(dx)+p_i*h_p*(T_a(t  ,x,j)-T_o(t  ,x,j))
+ 219                                                         -m(t)*cp_o*sum(k,A(j,k)*T_o(t+1,x,k))/(dx)+p_i*h_p*(T_a(t+1,x,j)-T_o(t+1,x,j)));
+ 220   
+ 221      eq_cont_To_dx(t,x,j)$(ord(x) < card(x))..
+ 222      sum(k,A('5',k)*T_o(t,x,k)) =e=  sum(k,A('1',k)*T_o(t,x+1,k));
+ 223      eq_cont_To_x(t,x,j)$(ord(x) < card(x))..
+ 224      T_o(t,x,'5') =e= T_o(t,x+1,'1');
+ 225      eq_BC_To_IN(t,x,j)$(bc_in_region(t,x,j) and ord(t) > 1)..
+ 226      T_o(t,x,j)-T_o_in(t) =e= 0;
+ 227      eq_BC_To_OUT(t,x,j)$(bc_out_region(t,x,j) and ord(t) > 1)..
+ 228      sum(k,A(j,k)*T_o(t,x,k))/(dx) =e= 0;
+ 229   
+ 230      eq_PDE_Ta(t,x,j)$(ord(t) < card(t))..
+ 231      T_a(t+1,x,j) =e= T_a(t,x,j)+dt/2/(rho_a*cp_a*A_o)*(p_i*h_p*(T_o(t  ,x,j)-T_a(t  ,x,j))-SB_const/c*p_i*(T_a(t  ,x,j)**4-T_e(t  ,x,j)**4)+I(t  ,x,j)*eta*W
+ 232                                                        +p_i*h_p*(T_o(t+1,x,j)-T_a(t+1,x,j))-SB_const/c*p_i*(T_a(t+1,x,j)**4-T_e(t+1,x,j)**4)+I(t+1,x,j)*eta*W);
+ 233   
+ 234      eq_PDE_Te(t,x,j)$(ord(t) < card(t))..
+ 235      T_e(t+1,x,j) =e= T_e(t,x,j)+dt/2/(rho_e*cp_e*A_e)*(SB_const/c*p_o*(T_a(t  ,x,j)**4-T_e(t  ,x,j)**4)-SB_const*xi_E*p_o*(T_e(t  ,x,j)**4-T_sky**4)-h_air*p_o*(T_e(t  ,x,j)-T_air)
+ 236                                                        +SB_const/c*p_o*(T_a(t+1,x,j)**4-T_e(t+1,x,j)**4)-SB_const*xi_E*p_o*(T_e(t+1,x,j)**4-T_sky**4)-h_air*p_o*(T_e(t+1,x,j)-T_air));
+ 237   
+ 238      eq_T_o_out(t).. T_o_out(t) =e= T_o(t,'5','5');
+ 239      eq_T_o_in(t)$(ord(t) > 1).. T_o_in(t) =e=  0.995*T_o_in(t-1) + 0.005*(T_o_out(t-1)-90);
+ 240   
+ 241      I_uncertain_x1_1(t)  ..  I(t,'1','1') =e= I_n(t)+300*FId*I_x1_vertex(t) ;
+ 242      I_uncertain_x1_2(t)  ..  I(t,'1','2') =e= I_n(t)+300*FId*I_x1_vertex(t) ;
+ 243      I_uncertain_x1_3(t)  ..  I(t,'1','3') =e= I_n(t)+300*FId*I_x1_vertex(t) ;
+ 244      I_uncertain_x1_4(t)  ..  I(t,'1','4') =e= I_n(t)+300*FId*I_x1_vertex(t) ;
+ 245      I_uncertain_x1_5(t)  ..  I(t,'1','5') =e= I_n(t)+300*FId*I_x2_vertex(t) ;
+ 246      I_uncertain_x2_1(t)  ..  I(t,'2','1') =e= I_n(t)+300*FId*I_x2_vertex(t) ;
+ 247      I_uncertain_x2_2(t)  ..  I(t,'2','2') =e= I_n(t)+300*FId*I_x2_vertex(t) ;
+ 248      I_uncertain_x2_3(t)  ..  I(t,'2','3') =e= I_n(t)+300*FId*I_x2_vertex(t) ;
+ 249      I_uncertain_x2_4(t)  ..  I(t,'2','4') =e= I_n(t)+300*FId*I_x2_vertex(t) ;
+ 250      I_uncertain_x2_5(t)  ..  I(t,'2','5') =e= I_n(t)+300*FId*I_x3_vertex(t) ;
+ 251      I_uncertain_x3_1(t)  ..  I(t,'3','1') =e= I_n(t)+300*FId*I_x3_vertex(t) ;
+ 252      I_uncertain_x3_2(t)  ..  I(t,'3','2') =e= I_n(t)+300*FId*I_x3_vertex(t) ;
+ 253      I_uncertain_x3_3(t)  ..  I(t,'3','3') =e= I_n(t)+300*FId*I_x3_vertex(t) ;
+ 254      I_uncertain_x3_4(t)  ..  I(t,'3','4') =e= I_n(t)+300*FId*I_x3_vertex(t) ;
+ 255      I_uncertain_x3_5(t)  ..  I(t,'3','5') =e= I_n(t)+300*FId*I_x3_vertex(t) ;
+ 256      I_uncertain_x4_1(t)  ..  I(t,'4','1') =e= I_n(t)+300*FId*I_x3_vertex(t) ;
+ 257      I_uncertain_x4_2(t)  ..  I(t,'4','2') =e= I_n(t)+300*FId*I_x4_vertex(t) ;
+ 258      I_uncertain_x4_3(t)  ..  I(t,'4','3') =e= I_n(t)+300*FId*I_x4_vertex(t) ;
+ 259      I_uncertain_x4_4(t)  ..  I(t,'4','4') =e= I_n(t)+300*FId*I_x4_vertex(t) ;
+ 260      I_uncertain_x4_5(t)  ..  I(t,'4','5') =e= I_n(t)+300*FId*I_x4_vertex(t) ;
+ 261      I_uncertain_x5_1(t)  ..  I(t,'5','1') =e= I_n(t)+300*FId*I_x4_vertex(t) ;
+ 262      I_uncertain_x5_2(t)  ..  I(t,'5','2') =e= I_n(t)+300*FId*I_x5_vertex(t) ;
+ 263      I_uncertain_x5_3(t)  ..  I(t,'5','3') =e= I_n(t)+300*FId*I_x5_vertex(t) ;
+ 264      I_uncertain_x5_4(t)  ..  I(t,'5','4') =e= I_n(t)+300*FId*I_x5_vertex(t) ;
+ 265      I_uncertain_x5_5(t)  ..  I(t,'5','5') =e= I_n(t)+300*FId*I_x5_vertex(t) ;
+ 266   
+ 267      m_1(t)$(ord(t) lt 240).. m(t) =e= m(t+1);
+ 268   
+ 269      fobj..  obj =e= FId;
+ 270   
+ 271      model PTC /all/;
+ 272      Scalar ms 'model status', ss 'solve status' ;
+ 273   
+ 274  *    option nlp = conopt;
+ 275  *    solve ptc using nlp maximizing obj;
+
+**** LIST OF STRAY NAMES - CHECK DECLARATIONS FOR SPURIOUS COMMAS
+**** STRAY NAME ss OF TYPE PARAM
+GAMS 32.2.0  rc62c018 Released Aug 26, 2020 WEX-WEI x86 64bit/MS Windows - 05/18/22 15:38:24 Page 2
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+Include File Summary
+
+
+   SEQ   GLOBAL TYPE      PARENT   LOCAL  FILENAME
+
+     1        1 INPUT          0       0  C:\Users\user\Documents\bjonesmile_project\FId-pde-project\PTC\ptc_nz1_seg5\PTC_modelinstance_I_nz1_5seg_gdxin.gms
+     2       37 GDXIN          1      37  C:\Users\user\Documents\bjonesmile_project\FId-pde-project\PTC\ptc_nz1_seg5\Db_vertex.gdx
+     3      154 IF EXIST       1     154  C:\Users\user\Documents\bjonesmile_project\FId-pde-project\PTC\ptc_nz1_seg5\T_o_lb.gdx
+     4      155 GDXIN          1     155  C:\Users\user\Documents\bjonesmile_project\FId-pde-project\PTC\ptc_nz1_seg5\T_o_lb.gdx
+     5      158 IF EXIST       1     158  C:\Users\user\Documents\bjonesmile_project\FId-pde-project\PTC\ptc_nz1_seg5\T_o_ub.gdx
+     6      159 GDXIN          1     159  C:\Users\user\Documents\bjonesmile_project\FId-pde-project\PTC\ptc_nz1_seg5\T_o_ub.gdx
+
+
+COMPILATION TIME     =        0.015 SECONDS      4 MB  32.2.0 rc62c018 WEX-WEI
+GAMS 32.2.0  rc62c018 Released Aug 26, 2020 WEX-WEI x86 64bit/MS Windows - 05/18/22 15:38:24 Page 3
+G e n e r a l   A l g e b r a i c   M o d e l i n g   S y s t e m
+E x e c u t i o n
+
+
+EXECUTION TIME       =        0.000 SECONDS      6 MB  32.2.0 rc62c018 WEX-WEI
+
+
+USER: Chuei-Tin Chang, Single User License           S200526/0001AP-WIN
+      National Cheng Kung University, Department of Chemical EngiDC3482
+      License for teaching and research at degree granting institutions
+
+
+**** FILE SUMMARY
+
+Input      C:\Users\user\Documents\bjonesmile_project\FId-pde-project\PTC\ptc_nz1_seg5\PTC_modelinstance_I_nz1_5seg_gdxin.gms
+Output     C:\Users\user\Documents\bjonesmile_project\FId-pde-project\PTC\ptc_nz1_seg5\PTC_modelinstance_I_nz1_5seg_gdxin.lst

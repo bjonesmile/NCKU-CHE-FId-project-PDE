@@ -1,0 +1,29 @@
+--- Job PTC_modelinstance_I_nz1_5seg_gdxin.gms Start 05/18/22 15:38:24 32.2.0 rc62c018 WEX-WEI x86 64bit/MS Windows
+--- Applying:
+    C:\GAMS\32\gmsprmNT.txt
+--- GAMS Parameters defined
+    Input C:\Users\user\Documents\bjonesmile_project\FId-pde-project\PTC\ptc_nz1_seg5\PTC_modelinstance_I_nz1_5seg_gdxin.gms
+    PageSize 0
+    ScrDir C:\Users\user\Documents\bjonesmile_project\FId-pde-project\PTC\ptc_nz1_seg5\225a\
+    SysDir C:\GAMS\32\
+    LogOption 3
+    ErrMsg 1
+    ErrorLog 99
+    IDE 1
+    LstTitleLeftAligned 1
+GAMS 32.2.0   Copyright (C) 1987-2020 GAMS Development. All rights reserved
+Licensee: Chuei-Tin Chang, Single User License           S200526/0001AP-WIN
+          National Cheng Kung University, Department of Chemical EngiDC3482
+          C:\Users\user\Documents\GAMS\gamslice.txt
+--- Starting compilation
+--- PTC_modelinstance_I_nz1_5seg_gdxin.gms(37) 3 Mb
+--- GDXin=C:\Users\user\Documents\bjonesmile_project\FId-pde-project\PTC\ptc_nz1_seg5\Db_vertex.gdx
+--- PTC_modelinstance_I_nz1_5seg_gdxin.gms(155) 3 Mb
+--- GDXin=C:\Users\user\Documents\bjonesmile_project\FId-pde-project\PTC\ptc_nz1_seg5\T_o_lb.gdx
+--- PTC_modelinstance_I_nz1_5seg_gdxin.gms(159) 3 Mb
+--- GDXin=C:\Users\user\Documents\bjonesmile_project\FId-pde-project\PTC\ptc_nz1_seg5\T_o_ub.gdx
+--- PTC_modelinstance_I_nz1_5seg_gdxin.gms(275) 4 Mb
+--- Starting execution: elapsed 0:00:00.010
+--- PTC_modelinstance_I_nz1_5seg_gdxin.gms(163) 6 Mb
+*** Status: Normal completion
+--- Job PTC_modelinstance_I_nz1_5seg_gdxin.gms Stop 05/18/22 15:38:24 elapsed 0:00:00.016

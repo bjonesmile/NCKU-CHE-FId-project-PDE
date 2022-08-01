@@ -1,0 +1,140 @@
+$ontext
+An insulated bar with an initial temperature distribution at t=0, having ends
+that are subsequently maintain at temperature which may be function of time.
+PDE:
+T = (theta - theta0)/(theta - theta0), tau = alpha*t/L^2, X = x/L
+dT/dtau = d^2T/dX^2, for 0<x<1, 0<t<T
+I.C.: T(X,0)=f(x), 0<=x<=1
+B.C.: T(0,tau)=g0(tau), 0<t<=1 : T = 0, for 0<=X<=1
+      T(1,tau)=g1(tau), 0<t<=1 : T = 1, for X=0 and X=1
+$offtext
+
+Set T /t1*t350/ ;
+Set X /x1*x21/ ;
+
+*Determination of zone for temperature distribute equation
+Set region(X,T) network of grid point;
+    region(X,T) = yes;
+    region(X,T)$(ord(T)=card(T)) = no;
+    region(X,T)$(ord(X)=1) = no;
+    region(X,T)$(ord(X)=card(X)) = no;
+    
+Set init_region(X,T) for init setting;
+    init_region(X,T) =no;
+    init_region(X,T)$(ord(T)=1) = yes;
+    init_region(X,T)$(ord(X)=1) = no;
+    init_region(X,T)$(ord(X)=card(X)) = no;
+
+Set limit_region(X,T) ;
+    limit_region(X,T) = yes ;
+    limit_region(X,T)$(ord(X)=1) = no;
+    limit_region(X,T)$(ord(X)=card(X)) = no;
+
+* Parameters
+scalar dt  step space in x direction  ;
+scalar dx  step space in y direction  ;
+parameter init_state(X) slab initial temperature state
+        /x1 0.4
+         x2 0.4475
+         x3 0.49
+         x4 0.5275
+         x5 0.56
+         x6 0.5875
+         x7 0.61
+         x8 0.6275
+         x9 0.64
+         x10 0.6475
+         x11 0.65
+         x12 0.6475
+         x13 0.64
+         x14 0.6275
+         x15 0.61
+         x16 0.5875
+         x17 0.56
+         x18 0.5275
+         x19 0.49
+         x20 0.4475
+         x21 0.4 /;
+
+dt = 0.001;
+dx = 0.05;
+
+Scalars
+          Tout_n  /0.75/
+          k0    0-oreder heat source
+          k1    1-oreder heat source
+          alpha
+          c     
+          r1    "dt/(dx*dx)"
+          r2    "dt/dx     "
+          v     0 Vx velocitgy;
+          r1 = dt/(dx*dx) ;
+          r2 = dt/dx ;
+          k1 = 0.000 ;
+          k0 = 0.600 ;
+          c = 10;
+          alpha = 1.0;
+          v = 0;
+
+Parameter
+          Tout_vertex(t)
+          ;
+          Tout_vertex(t) = 1;
+
+variables
+          FId           flexibility index
+          Tout(T)       uncertain parameter T_out
+          obj           objective variable
+          u(X,T)        temperature distribution
+          bc_L(T)       bondary condition of left side
+          bc_R(T)       bondary condition of right side ;
+          
+* Variable bounds and initialization
+    u.l(X,T) = 0;
+    u.l(X,T) = 0.8;
+    u.lo(X,T) = 0.0;
+    
+    u.fx(X,T)$(init_region(X,T)) = init_state(X) ;
+    loop((T),u.l(X,T)=init_state(X));
+    FId.up = 1.0;
+    FId.lo = 0;
+* Boundary conditions
+    bc_L.lo(T) = 0.25;
+    bc_R.lo(T) = 0.25;
+    bc_R.up(T) = 0.7;
+    bc_L.up(T) = 0.7;
+    
+Equations
+          Tout_uncertain(T)     uncertain parameter
+          eobj                  objective function
+          eq_IC(X,T)            initial condition setting
+          BC_L1(T)
+          BC_R1(T)
+          For_u(X,T)
+          left_bc(T)
+          right_bc(T) ;
+    eq_IC(X,T)$(init_region(X,T)) .. u(X,T) =e= init_state(X) ;
+    Tout_uncertain(T) ..  Tout(T) =e= 0.75+0.5*FId*Tout_vertex(T) ;
+    
+*   forward
+    For_u(X,T)$(region(X,T)) ..  u(X,T+1) =e= u(X,T)+alpha*(r1*u(X-1,T)-2*r1*u(X,T)+r1*u(X+1,T))-v*r2*(u(X+1,T)-u(X,T))-c*dt*(u(X,T)-Tout(T)) ;
+*   central
+*   For_u(X,T)$(region(X,T)) ..  u(X,T+1) =e= u(X,T-1)+alpha(T)*r1*(u(X-1,T)-2*u(X,T)+u(X+1,T))-v*r2*(u(X+1,T)-u(X-1,T))-c*2*dt*(u(X,T)-k0) ;
+    
+    left_bc(T).. u('x1',T) =e= bc_L(T);
+    right_bc(T).. u('x21',T) =e= bc_R(T);
+    BC_L1(T)$(ord(T) lt 350).. bc_L(T) =e= bc_L(T+1);
+    BC_R1(T)$(ord(T) lt 350).. bc_R(T) =e= bc_R(T+1);
+
+    eobj .. obj =e= FId;
+    
+Model CHS /all/;
+
+*$onecho >bench.opt
+*  solvers conopt knitro minos snopt
+*$offecho
+
+*temp_slab_FId.optfile=1;
+*option nlp=bench;
+option reslim = 300;
+Scalar ms 'model status', ss 'solve status' ;
